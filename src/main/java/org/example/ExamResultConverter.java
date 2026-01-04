@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,11 +50,16 @@ public class ExamResultConverter {
 
             }
         });
+
         convertButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     convertMultipleExcelFiles(getExcelFileNames(inputTxt.getText()), inputTxt.getText());
+                    String message = "File excel nilai asesmen sumatif berhasil dikonversi";
+                    JOptionPane.showMessageDialog(null, message, "Excel Files Check",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    viewOutputFolderButton.setEnabled(true);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -80,6 +86,16 @@ public class ExamResultConverter {
     private void createAndShowGUI() {
         JFrame frame = new JFrame("Exam Result Converter");
         frame.setContentPane(this.panel1);
+        frame.setTitle("Program Konversi File Excel Nilai Asesmen Sumatif Al Azhar 3");
+        URL iconURL = getClass().getResource("/images/logo-ypi.png");
+        if (iconURL != null) {
+            ImageIcon icon = new ImageIcon(iconURL);
+            Image image = icon.getImage();
+            // Set the icon image for the frame and taskbar
+            frame.setIconImage(image);
+        } else {
+            System.err.println("Icon image not found: /images/app_icon.png");
+        }
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(3);
         frame.setLocationRelativeTo((Component) null);
